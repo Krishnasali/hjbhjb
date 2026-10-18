@@ -1,0 +1,454 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FreshVeg Market | Organic Precision</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#520c00",
+              "inverse-primary": "#fecb00",
+              "on-secondary-fixed": "#323c4c",
+              "on-primary-fixed": "#413200",
+              "on-primary-container": "#584500",
+              "error-container": "#f95630",
+              "on-background": "#2c2f31",
+              "on-surface": "#2c2f31",
+              "secondary-container": "#d3ddf2",
+              "secondary-fixed-dim": "#c5cfe3",
+              "surface-container-highest": "#dadde0",
+              "inverse-surface": "#0c0f10",
+              "tertiary-fixed": "#69f6b8",
+              "on-tertiary-container": "#005a3c",
+              "tertiary-container": "#69f6b8",
+              "primary": "#705900",
+              "secondary": "#525c6d",
+              "surface-container": "#e6e8eb",
+              "on-tertiary-fixed": "#00452d",
+              "surface-bright": "#f5f6f8",
+              "inverse-on-surface": "#9b9d9f",
+              "tertiary-dim": "#005c3d",
+              "primary-fixed": "#fecb00",
+              "outline-variant": "#abadaf",
+              "tertiary": "#006947",
+              "on-primary-fixed-variant": "#634e00",
+              "on-tertiary-fixed-variant": "#006544",
+              "primary-dim": "#624d00",
+              "on-surface-variant": "#595c5e",
+              "on-error": "#ffefec",
+              "surface": "#f5f6f8",
+              "primary-fixed-dim": "#eebe00",
+              "outline": "#757779",
+              "on-primary": "#fff1d5",
+              "error": "#b02500",
+              "surface-tint": "#705900",
+              "on-secondary": "#eef3ff",
+              "background": "#f5f6f8",
+              "on-tertiary": "#c8ffe0",
+              "primary-container": "#fecb00",
+              "on-secondary-container": "#454f5f",
+              "on-secondary-fixed-variant": "#4e5869",
+              "tertiary-fixed-dim": "#58e7ab",
+              "surface-container-low": "#eff1f3",
+              "surface-dim": "#d1d5d8",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#d3ddf2",
+              "error-dim": "#b92902",
+              "surface-container-high": "#e0e3e5",
+              "surface-variant": "#dadde0",
+              "secondary-dim": "#465061"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .organic-curve {
+            clip-path: ellipse(80% 50% at 50% 0%);
+        }
+        .produce-mask {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        
+        /* 3D Floating Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        .animate-float-fast {
+            animation: float 5s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        /* 3D Tilt Card Effect */
+        .card-3d {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+        }
+        .card-3d:hover {
+            transform: translateY(-12px) rotateX(4deg) rotateY(-2deg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Parallax depth layers */
+        .parallax-bg {
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+        }
+
+        /* Glassmorphism Overlays */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container perspective-1000">
+<script>
+  (function(){
+    if (!localStorage.getItem('freshveg_session')) {
+      localStorage.setItem('freshveg_redirect_after_login', window.location.href);
+      window.location.replace('login.html');
+    }
+  })();
+</script>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/60 dark:bg-slate-900/60 backdrop-blur-md shadow-sm border-b border-white/20 transition-all duration-300">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<a href="index.html" class="text-2xl font-extrabold tracking-tight dark:text-white flex items-center gap-2" style="color: #4caf50;">
+<span class="material-symbols-outlined" data-icon="eco" style="color: #4caf50;">eco</span>
+            FreshVeg Market
+        </a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-yellow-400 font-bold border-b-2 border-primary py-1" href="index.html">Shop</a>
+<a class="text-on-surface/70 dark:text-slate-400 hover:text-primary transition-colors py-1" href="index.html">Home</a>
+<a class="text-on-surface/70 dark:text-slate-400 hover:text-primary transition-colors py-1" href="farmers.html">Farmers</a>
+<a class="text-on-surface/70 dark:text-slate-400 hover:text-primary transition-colors py-1" href="#">Organic</a>
+</div>
+<div class="flex items-center gap-4">
+<a href="cart.html" class="relative p-2 hover:bg-primary/10 dark:hover:bg-yellow-400/10 rounded-full transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-on-surface" data-icon="shopping_cart">shopping_cart</span>
+<span id="cart-badge" class="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 transition-opacity translate-x-1/4 -translate-y-1/4">0</span>
+</a>
+<a onclick="(function(){const s=localStorage.getItem('freshveg_session');window.location.href=s?'dashboard.html':'login.html';})()" class="p-2 hover:bg-primary/10 dark:hover:bg-yellow-400/10 rounded-full transition-all active:scale-95 group cursor-pointer">
+<span class="material-symbols-outlined text-on-surface" data-icon="person">person</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative min-h-[870px] flex items-center px-8 lg:px-24 overflow-hidden">
+<!-- Organic Background Shapes & Parallax Elements -->
+<div class="absolute top-0 right-0 -z-20 w-2/3 h-full bg-primary-container/20 organic-curve rotate-12 translate-x-1/4 scale-150 opacity-60"></div>
+<div class="absolute -bottom-24 -left-24 -z-20 w-96 h-96 bg-tertiary-container/30 rounded-full blur-3xl opacity-50"></div>
+<!-- 3D Floating Decor (Symbolic of Vegetables) -->
+<div class="absolute top-1/4 right-1/4 w-12 h-12 bg-primary/20 rounded-full blur-xl animate-float-delayed"></div>
+<div class="absolute bottom-1/3 left-1/4 w-16 h-16 bg-tertiary/20 rounded-full blur-xl animate-float"></div>
+<div class="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto w-full relative z-10">
+<div class="space-y-8 reveal-fade-in transition-all duration-1000 transform translate-y-0 opacity-100">
+<span class="inline-block px-4 py-2 glass-card text-on-primary-container rounded-full font-label font-semibold text-sm border-primary/20" style="">
+                    FRESH FROM THE FARM
+                </span>
+<h1 class="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-tight" style="">
+                    Freshness <br>
+<span class="text-primary" style="">Delivered</span> with <br>
+                    a Smile
+                </h1>
+<p class="text-xl text-on-surface-variant max-w-lg font-body leading-relaxed" style="">
+                    Sourced directly from local sustainable farmers. We bring the season's finest harvest to your doorstep with precision and care.
+                </p>
+<div class="flex gap-4">
+<button class="px-8 py-4 bg-gradient-to-r from-primary to-primary-fixed text-on-primary rounded-full font-bold shadow-lg hover:shadow-primary/40 hover:-translate-y-1 transition-all active:scale-95 flex items-center gap-2" style="">
+                        Start Shopping
+                        <span class="material-symbols-outlined" style="">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-surface-container-highest text-on-surface rounded-full font-bold transition-all hover:bg-surface-container-high hover:-translate-y-1 active:scale-95" style="">
+                        Our Story
+                    </button>
+</div>
+</div>
+<div class="relative group transition-all duration-700 opacity-100 translate-y-0">
+<div class="relative w-full aspect-square max-w-xl mx-auto">
+<!-- Floating Vegetable Imagery with subtle 3D hover -->
+<div class="absolute inset-0 bg-primary-container rounded-full scale-90 -rotate-6 opacity-40 transition-transform group-hover:rotate-0 duration-700"></div>
+<img class="absolute inset-0 w-full h-full object-cover produce-mask shadow-2xl z-20 transition-transform duration-700 group-hover:scale-105" data-alt="a vibrant bowl filled with diverse fresh vegetables like kale, radishes, carrots and bell peppers arranged artistically on a light surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdYX02xkova5K96JkhIUB3YpttO2WzLgQ5lV506FQV7LUiNTExRHfTKXDW4Ri8JW1QdJopJbT2F83WpKg1XS5BSusmvaJoi0_mvf4hpwTC1Lhz9ps-EU_dqlEfOCRFUxlDnOTXtRzicXuw9KFi_g-JzOih5VlIwhJgukMZOTiO2T-N9VEzp8KCLUWjAkdiv3X9VCK5rXoah8j059dT1FbapgB6Tssq8lRUmzVeQWiq9IM25Kp5pyK1DNs8xQfYfZYAi80f9t9jWQ" style="">
+<!-- Floating 3D "Vegetables" (Icons acting as floating depth elements) -->
+<div class="absolute -left-8 top-1/4 z-30 animate-float">
+<div class="p-4 bg-white shadow-2xl rounded-2xl flex items-center justify-center transform -rotate-12 border border-green-100">
+<span class="material-symbols-outlined text-green-600 text-3xl" data-icon="eco" style="">eco</span>
+</div>
+</div>
+<div class="absolute -right-4 bottom-1/4 z-30 animate-float-delayed">
+<div class="p-4 bg-white shadow-2xl rounded-2xl flex items-center justify-center transform rotate-12 border border-red-100">
+<span class="material-symbols-outlined text-red-500 text-3xl" data-icon="nutrition" style="">nutrition</span>
+</div>
+</div>
+<!-- Glass Overlay Badge -->
+<div class="absolute -top-4 -right-4 glass-card p-6 rounded-xl shadow-xl z-30 flex items-center gap-4 max-w-xs transition-transform duration-500 hover:scale-110">
+<div class="w-12 h-12 bg-tertiary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="energy_savings_leaf" style="">energy_savings_leaf</span>
+</div>
+<div>
+<p class="text-sm font-bold" style="">100% Organic</p>
+<p class="text-xs text-on-surface-variant" style="">Certified Green</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Categories -->
+<section class="py-24 px-8 max-w-7xl mx-auto relative">
+<!-- Floating background element -->
+<div class="absolute right-0 top-0 text-primary/5 select-none pointer-events-none transform translate-x-1/2 scale-150 rotate-45">
+<span class="material-symbols-outlined text-[300px]" data-icon="grass" style="">grass</span>
+</div>
+<div class="flex justify-between items-end mb-16 relative z-10">
+<div>
+<h2 class="text-4xl font-bold mb-4 transition-all duration-700 opacity-100 translate-y-0" style="">The Harvest Pantry</h2>
+<p class="text-on-surface-variant" style="">Explore our curated selections by type</p>
+</div>
+<button class="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all hover:underline" style="">
+                View All Categories <span class="material-symbols-outlined" style="">trending_flat</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+<!-- Leafy -->
+<a href="leafy-greens.html" class="block group cursor-pointer transition-all duration-700 opacity-100 translate-y-0">
+<div class="aspect-square rounded-full bg-surface-container-low flex items-center justify-center transition-all group-hover:bg-primary-container/40 group-hover:scale-110 group-hover:-translate-y-2 mb-6 overflow-hidden relative shadow-sm hover:shadow-xl">
+<span class="material-symbols-outlined text-5xl text-on-surface-variant group-hover:text-primary transition-colors" data-icon="eco" style="">eco</span>
+<div class="absolute inset-0 bg-gradient-to-tr from-transparent to-white/30"></div>
+</div>
+<h3 class="text-center font-bold text-lg group-hover:text-primary transition-colors" style="">Leafy Greens</h3>
+</a>
+<!-- Root -->
+<a href="root-veg.html" class="block group cursor-pointer transition-all duration-700 opacity-100 translate-y-0">
+<div class="aspect-square rounded-full bg-surface-container-low flex items-center justify-center transition-all group-hover:bg-primary-container/40 group-hover:scale-110 group-hover:-translate-y-2 mb-6 overflow-hidden relative shadow-sm hover:shadow-xl">
+<span class="material-symbols-outlined text-5xl text-on-surface-variant group-hover:text-primary transition-colors" data-icon="nutrition" style="">nutrition</span>
+</div>
+<h3 class="text-center font-bold text-lg group-hover:text-primary transition-colors" style="">Root Veg</h3>
+</a>
+<!-- Fruits -->
+<a href="fruits.html" class="block group cursor-pointer transition-all duration-700 opacity-100 translate-y-0">
+<div class="aspect-square rounded-full bg-surface-container-low flex items-center justify-center transition-all group-hover:bg-primary-container/40 group-hover:scale-110 group-hover:-translate-y-2 mb-6 overflow-hidden relative shadow-sm hover:shadow-xl">
+<span class="material-symbols-outlined text-5xl text-on-surface-variant group-hover:text-primary transition-colors" data-icon="bakery_dining" style="">bakery_dining</span>
+</div>
+<h3 class="text-center font-bold text-lg group-hover:text-primary transition-colors" style="">Fruits</h3>
+</a>
+<!-- Seasonal -->
+<a href="seasonal.html" class="block group cursor-pointer transition-all duration-700 opacity-100 translate-y-0">
+<div class="aspect-square rounded-full bg-surface-container-low flex items-center justify-center transition-all group-hover:bg-primary-container/40 group-hover:scale-110 group-hover:-translate-y-2 mb-6 overflow-hidden relative shadow-sm hover:shadow-xl">
+<span class="material-symbols-outlined text-5xl text-on-surface-variant group-hover:text-primary transition-colors" data-icon="temp_preferences_eco" style="">temp_preferences_eco</span>
+</div>
+<h3 class="text-center font-bold text-lg group-hover:text-primary transition-colors" style="">Seasonal</h3>
+</a>
+</div>
+</section>
+<!-- Deals of the Day -->
+<section class="bg-surface-container-low/50 py-24 relative overflow-hidden">
+<!-- Parallax Decoration -->
+<div class="absolute -left-20 top-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl parallax-bg"></div>
+<div class="max-w-7xl mx-auto px-8 relative z-10">
+<div class="flex items-center gap-4 mb-12">
+<h2 class="text-4xl font-bold transition-all duration-700 opacity-100 translate-y-0" style="">Deals of the Day</h2>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm" style="">
+<span class="material-symbols-outlined" style="">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm" style="">
+<span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<!-- Card 1 -->
+<div class="card-3d bg-surface-container-lowest p-8 rounded-2xl group relative overflow-hidden transition-all duration-700 opacity-100 translate-y-0">
+<div class="absolute top-4 right-4 bg-error text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-20" style="">-20% Today</div>
+<img class="w-full h-56 object-cover rounded-xl mb-8 group-hover:scale-110 transition-transform duration-700" data-alt="close-up of fresh green asparagus spears tied with a rustic twine on a clean light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlETyd4TUz_9xY2KeFdLZA3o5EjPL9SVcwjcONGo4J9h-A1n9nUClXfAHm2fujgePF6dqq8o0g9sYsCHR1YzF1ixkf-CObGBw1YPtlBTstz_z2nQCd-8x_LgXg3rSZtri_RlOe-Q-YRBgyBLHSbMucEhvuJzTd83zd5cJkQxa51HHoKbwAl0pSi9RmH9fykETP5zLvkrgVUqA3EFFJKAX9MPzt3e4F7A1B8GnFQMolAi8uJ9k_7qB2_rZYjeUQl9KcOMRTQRQbmQ" style="">
+<h4 class="text-xl font-bold mb-2" style="">Organic Asparagus</h4>
+<div class="flex justify-between items-center mt-6">
+<div>
+<p class="text-primary font-extrabold text-2xl" style="">₹360 <span class="text-sm font-normal text-on-surface-variant" style="">/kg</span></p>
+<p class="text-xs text-on-surface-variant line-through" style="">₹450</p>
+</div>
+<button class="p-4 bg-primary-container text-on-primary-container rounded-full hover:shadow-xl hover:rotate-12 transition-all active:scale-90" style="">
+<span class="material-symbols-outlined" data-weight="fill" style="">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="card-3d bg-surface-container-lowest p-8 rounded-2xl group relative overflow-hidden transition-all duration-700 opacity-100 translate-y-0">
+<img class="w-full h-56 object-cover rounded-xl mb-8 group-hover:scale-110 transition-transform duration-700" data-alt="a cluster of bright red cherry tomatoes still on their vine with water droplets reflecting light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeUrAb577m0-7tiJZjRqKhw-RI04z_N65JvcW5En1AMp1VUWH3UY6S6Mpjr_fdmdTT-1LMKTrCx9zUufxahbKN7zFFmoG5-a7-uHxeMt8WS1-eDSnnjGrEPLBRtNUdACPTj4VUdz3uKvy1a7S7zgMWY45sEXtgDGynH1Rc25vgKozccKlC3q-2B-qwHd3YZ3JvMVpAoVWfxjs9n8SdJQWSfsbRxFXEBsBdrA-b-GUO8FUNgAcV1fPcZej3Jifnx3H1EN8HQwpTpg" style="">
+<h4 class="text-xl font-bold mb-2" style="">Heirloom Tomatoes</h4>
+<div class="flex justify-between items-center mt-6">
+<div>
+<p class="text-primary font-extrabold text-2xl" style="">₹250 <span class="text-sm font-normal text-on-surface-variant" style="">/kg</span></p>
+</div>
+<button class="p-4 bg-primary-container text-on-primary-container rounded-full hover:shadow-xl hover:rotate-12 transition-all active:scale-90" style="">
+<span class="material-symbols-outlined" data-weight="fill" style="">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="card-3d bg-surface-container-lowest p-8 rounded-2xl group relative overflow-hidden transition-all duration-700 opacity-100 translate-y-0">
+<div class="absolute top-4 right-4 bg-tertiary text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-20" style="">Organic</div>
+<img class="w-full h-56 object-cover rounded-xl mb-8 group-hover:scale-110 transition-transform duration-700" data-alt="fresh vibrant rainbow chard leaves with bright pink and yellow stalks in a minimalist kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSwVugKHMfpF60khMM2RWvNEbH4ui7dR-fBt_BjyUTu_BYnijqHeQh3VNrkv80aQl1_YdN7whEZQkRrjdJ0pfBQQbvKz8ROHukuTcjp-4oOoE507b9mMjxAiZ2kFjC1phgL93sfsBUDowUvmXPXKgr7mv8Ry25CnFWdHmVHnoElMlI_CHgpcL5b77ZEZGZnFcYpG6_1zsG19I_tU6wzsAz6irP0uP8psEYoyPcx2FW8m5vkY3Te0t2EDcwA-eAttvGi0zUOQH3cw" style="">
+<h4 class="text-xl font-bold mb-2" style="">Rainbow Chard</h4>
+<div class="flex justify-between items-center mt-6">
+<div>
+<p class="text-primary font-extrabold text-2xl" style="">₹220 <span class="text-sm font-normal text-on-surface-variant" style="">/kg</span></p>
+</div>
+<button class="p-4 bg-primary-container text-on-primary-container rounded-full hover:shadow-xl hover:rotate-12 transition-all active:scale-90" style="">
+<span class="material-symbols-outlined" data-weight="fill" style="">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Second Row with Entrance Animations -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
+<!-- Card 4 -->
+<div class="card-3d bg-surface-container-lowest p-8 rounded-2xl group relative overflow-hidden transition-all duration-700 opacity-100 translate-y-0">
+<img alt="fresh purple carrots" class="w-full h-56 object-cover rounded-xl mb-8 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEHFsUdV41c3df6wRu_KDEmCk5O5k7P7OzUuGFi6I_RXGX41RnRcmnRWVffkVWfHjy5p8OejXeHwkAocrknaSZEFQOzu-2li6mOkt3_pAW7pMi6BScIYZPRP2BIj9QZxWuQ91_qXkqTsaaqk7cKs1w6Y9CBmclwo8VsGopfKctfXS9xAGaX2oQpFa2hxBuAhCI3hJJWpu6LZzAXmTt8nZ9bM2GFnKK3nbfBrDFSYLrMdOK6SdyLkfxgSpcu00bXemvwI-aknTugQ" style="">
+<h4 class="text-xl font-bold mb-2" style="">Organic Purple Carrots</h4>
+<div class="flex justify-between items-center mt-6">
+<div>
+<p class="text-primary font-extrabold text-2xl" style="">₹120 <span class="text-sm font-normal text-on-surface-variant" style="">/kg</span></p>
+</div>
+<button class="p-4 bg-primary-container text-on-primary-container rounded-full hover:shadow-xl hover:rotate-12 transition-all active:scale-90" style="">
+<span class="material-symbols-outlined" data-weight="fill" style="">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="card-3d bg-surface-container-lowest p-8 rounded-2xl group relative overflow-hidden transition-all duration-700 opacity-100 translate-y-0">
+<div class="absolute top-4 right-4 bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-20" style="">Farmer's Pick</div>
+<img alt="fresh baby spinach" class="w-full h-56 object-cover rounded-xl mb-8 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVsObph9lyl6XgCtm_3A1b2sDtdNBlh-U0ApVpi8J3WZaswq5Q-43OnMsDXOSEG7OeQusdAumMB7MF0Gp11K7npJNAha-njcHn-fMgoebgLAXRzWqa74Qtg14knxP8lIeGPdM-WixCXLuogRtYtj6nyBxV84ERIK3W2WcrL6XFGPw-h6E2XXsIKEa6JAff0yXRLS1GdZSY4Zns-Zyl6xvEFyqqROY8UJxuJZY_ldNEzrj-R8RA9KhA-A6JtEQ6mQH-cgDGdgyFVA" style="">
+<h4 class="text-xl font-bold mb-2" style="">Baby Spinach</h4>
+<div class="flex justify-between items-center mt-6">
+<div>
+<p class="text-primary font-extrabold text-2xl" style="">₹85 <span class="text-sm font-normal text-on-surface-variant" style="">/pack</span></p>
+</div>
+<button class="p-4 bg-primary-container text-on-primary-container rounded-full hover:shadow-xl hover:rotate-12 transition-all active:scale-90" style="">
+<span class="material-symbols-outlined" data-weight="fill" style="">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="card-3d bg-surface-container-lowest p-8 rounded-2xl group relative overflow-hidden transition-all duration-700 opacity-100 translate-y-0">
+<img alt="fresh bell peppers" class="w-full h-56 object-cover rounded-xl mb-8 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzokWqgUcvXtDr6m1jMVkG-dckEwO1_qHWoVyzrjDeXtT8Bj6GpS7dHavr3qQAPH-LTWtCQBF1NP18SFXqyei3HwIxYYT1Q2L3crHMJU0kVI92duuTPZ2wp2hjORLEYh3kEhdOG4XqAVYpxazzt7xJGeHFdB8s4cN2x3l5K-kPzYRC9U4g99sLjiEIqgAJq-6jptM5rKdbXQ0nB3SEoB7j4Wft-MUQPvulwOgGwe3dBkatpMhSGc2x9uO1Vt82P4ps4wTv5FY1xg" style="">
+<h4 class="text-xl font-bold mb-2" style="">Trio Bell Peppers</h4>
+<div class="flex justify-between items-center mt-6">
+<div>
+<p class="text-primary font-extrabold text-2xl" style="">₹180 <span class="text-sm font-normal text-on-surface-variant" style="">/kg</span></p>
+</div>
+<button class="p-4 bg-primary-container text-on-primary-container rounded-full hover:shadow-xl hover:rotate-12 transition-all active:scale-90" style="">
+<span class="material-symbols-outlined" data-weight="fill" style="">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="max-w-7xl mx-auto px-8 my-24 relative overflow-hidden">
+<div class="bg-primary/5 rounded-[3rem] p-12 md:p-24 relative overflow-hidden flex flex-col items-center text-center transition-all duration-700 hover:shadow-2xl">
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-primary-container/20 rounded-full animate-float"></div>
+<div class="absolute -bottom-12 -left-12 w-48 h-48 bg-tertiary-container/20 rounded-full animate-float-delayed"></div>
+<div class="relative z-10">
+<h2 class="text-4xl md:text-5xl font-extrabold mb-6 max-w-2xl transition-all duration-700 opacity-100 translate-y-0" style="">Get Fresh Deals in Your Inbox Every Week</h2>
+<p class="text-on-surface-variant mb-12 max-w-lg text-lg" style="">Join 50k+ home cooks receiving seasonal recipes and exclusive market prices directly from our farmers.</p>
+<form class="w-full max-w-xl flex flex-col md:flex-row gap-4">
+<input class="flex-1 px-8 py-5 glass-card rounded-full border-none focus:ring-2 focus:ring-primary/40 text-lg shadow-sm placeholder:text-on-surface-variant/50" placeholder="Your farm-fresh email address" type="email">
+<button class="px-12 py-5 bg-primary-container text-on-primary-container font-bold rounded-full shadow-lg hover:shadow-primary/40 hover:-translate-y-1 transition-all active:scale-95 whitespace-nowrap" type="submit" style="">
+                        Subscribe Now
+                    </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-24 bg-surface-container dark:bg-slate-950 relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full max-w-7xl mx-auto">
+<div class="mb-12 md:mb-0">
+<div class="text-xl font-black mb-4 flex items-center gap-2" style="color: #4caf50;">
+<span class="material-symbols-outlined" style="color: #4caf50;">eco</span>
+    FreshVeg Market
+</div>
+<p class="text-on-surface-variant/80 dark:text-slate-500 max-w-xs font-medium text-sm" style="">
+                Cultivating Organic Precision. Delivering the highest quality produce from the earth to your table.
+            </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12 mb-12 md:mb-0">
+<a class="text-on-surface-variant/80 dark:text-slate-500 hover:text-on-surface font-medium text-sm transition-colors" href="#" style="">Privacy Policy</a>
+<a class="text-on-surface-variant/80 dark:text-slate-500 hover:text-on-surface font-medium text-sm transition-colors" href="#" style="">Terms of Service</a>
+<a class="text-on-surface-variant/80 dark:text-slate-500 hover:text-on-surface font-medium text-sm transition-colors" href="#" style="">Sustainability Report</a>
+<a class="text-on-surface-variant/80 dark:text-slate-500 hover:text-on-surface font-medium text-sm transition-colors" href="#" style="">Press Kit</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm" style="">public</span>
+</div>
+<div class="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm" style="">share</span>
+</div>
+</div>
+</div>
+<div class="text-center pb-8 px-8 font-plus-jakarta text-sm font-medium text-on-surface-variant dark:text-slate-400" style="">
+        © 2026 Krishna Sali. Cultivating Organic Precision.
+    </div>
+</footer>
+<!-- FAB for Support (Contextual) with glassmorphism -->
+<button class="fixed bottom-8 right-8 w-16 h-16 glass-card bg-primary-container/80 text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 hover:-translate-y-2 active:scale-95 transition-all z-40" style="">
+<span class="material-symbols-outlined" data-icon="chat" style="">chat</span>
+</button>
+<script>
+    // Simple intersection observer for scroll reveal effects
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.card-3d, section h2, .group').forEach(el => {
+        el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+        observer.observe(el);
+    });
+</script>
+<script src="cart.js"></script>
+<script type="module" src="vendor-listings.js"></script>
+</body></html>

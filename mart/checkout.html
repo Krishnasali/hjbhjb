@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout | FreshVeg Market</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#dadde0","on-secondary-fixed": "#323c4c","secondary-container": "#d3ddf2","inverse-on-surface": "#9b9d9f","on-secondary-container": "#454f5f","surface-tint": "#705900","on-tertiary-fixed": "#00452d","error-dim": "#b92902","on-error-container": "#520c00","tertiary-fixed": "#69f6b8","surface-variant": "#dadde0","on-tertiary-fixed-variant": "#006544","outline-variant": "#abadaf","error": "#b02500","on-primary": "#fff1d5","on-error": "#ffefec","primary-container": "#fecb00","secondary": "#525c6d","outline": "#757779","inverse-surface": "#0c0f10","primary-fixed-dim": "#eebe00","tertiary-container": "#69f6b8","on-primary-fixed-variant": "#634e00","tertiary-dim": "#005c3d","surface-container": "#e6e8eb","surface-bright": "#f5f6f8","primary-dim": "#624d00","surface-dim": "#d1d5d8","surface-container-low": "#eff1f3","on-background": "#2c2f31","on-secondary": "#eef3ff","tertiary-fixed-dim": "#58e7ab","tertiary": "#006947","background": "#f5f6f8","on-tertiary": "#c8ffe0","on-surface": "#2c2f31","on-tertiary-container": "#005a3c","on-secondary-fixed-variant": "#4e5869","primary-fixed": "#fecb00","surface-container-high": "#e0e3e5","primary": "#705900","error-container": "#f95630","inverse-primary": "#fecb00","secondary-fixed-dim": "#c5cfe3","on-primary-fixed": "#413200","secondary-dim": "#465061","on-surface-variant": "#595c5e","secondary-fixed": "#d3ddf2","surface": "#f5f6f8","surface-container-lowest": "#ffffff","on-primary-container": "#584500"
+            },
+            fontFamily: { "headline": ["Plus Jakarta Sans"],"body": ["Plus Jakarta Sans"],"label": ["Plus Jakarta Sans"] },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f5f6f8; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tonal-transition { transition: background-color 0.3s ease; }
+        .organic-shape { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        #order-success { display: none; }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-container">
+<script>
+  (function(){
+    if (!localStorage.getItem('freshveg_session')) {
+      localStorage.setItem('freshveg_redirect_after_login', window.location.href);
+      window.location.replace('login.html');
+    }
+  })();
+</script>
+
+<!-- SUCCESS OVERLAY -->
+<div id="order-success" class="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl p-10 max-w-md w-full text-center shadow-2xl">
+    <div class="w-20 h-20 rounded-full bg-tertiary-container flex items-center justify-center mx-auto mb-6">
+      <span class="material-symbols-outlined text-5xl text-tertiary" style="font-variation-settings:'FILL' 1;">check_circle</span>
+    </div>
+    <h2 class="text-3xl font-extrabold mb-2">Order Placed! 🎉</h2>
+    <p class="text-on-surface-variant text-sm mb-1">Your order <strong id="success-order-id"></strong> is confirmed.</p>
+    <p class="text-on-surface-variant text-sm mb-8">Your fresh produce is on its way!</p>
+    <div class="flex gap-3 justify-center">
+      <a href="dashboard.html" class="inline-block bg-primary text-on-primary px-6 py-3 rounded-full font-bold hover:opacity-90 transition-all">View My Orders</a>
+      <a href="index.html" class="inline-block bg-surface-container text-on-surface px-6 py-3 rounded-full font-bold hover:opacity-90 transition-all">Back to Shop</a>
+    </div>
+  </div>
+</div>
+
+<!-- TopNavBar -->
+<nav class="bg-white/80 backdrop-blur-xl sticky top-0 w-full z-50 shadow-sm">
+  <div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+    <a href="index.html" class="text-2xl font-black tracking-tight hover:opacity-80 transition-all" style="color: #4caf50;">FreshVeg Market</a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-slate-600 font-medium hover:text-primary transition-colors" href="index.html">Shop</a>
+      <a class="text-slate-600 font-medium hover:text-primary transition-colors" href="index.html">Home</a>
+      <a class="text-slate-600 font-medium hover:text-primary transition-colors" href="farmers.html">Farmers</a>
+      <a class="text-slate-600 font-medium hover:text-primary transition-colors" href="#">Organic</a>
+    </div>
+    <div class="flex gap-3 items-center">
+      <a href="cart.html" class="p-2 hover:bg-slate-100 rounded-full transition-all">
+        <span class="material-symbols-outlined">shopping_cart</span>
+      </a>
+      <a onclick="(function(){const s=localStorage.getItem('freshveg_session');window.location.href=s?'dashboard.html':'login.html';})()" class="p-2 hover:bg-slate-100 rounded-full transition-all cursor-pointer">
+        <span class="material-symbols-outlined">account_circle</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-screen-2xl mx-auto px-6 md:px-12 py-12">
+  <!-- Breadcrumbs & Title -->
+  <div class="mb-10">
+    <a href="cart.html" class="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary font-bold text-sm mb-4 group">
+      <span class="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">arrow_back</span>
+      Back to Cart
+    </a>
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-2">Checkout</h1>
+    <p class="text-on-surface-variant font-medium">Review your organic harvest and finalize your order.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <!-- Left Column: Checkout Forms -->
+    <div class="lg:col-span-8 space-y-8">
+
+      <!-- Section 1: Shipping Address -->
+      <section class="bg-surface-container-lowest rounded-xl p-8 hover:bg-surface-bright transition-all">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings:'FILL' 1;">location_on</span>
+          </div>
+          <h2 class="text-2xl font-bold">Shipping Address</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold mb-2 ml-1">Full Name</label>
+            <input id="ship-name" class="w-full bg-surface-container-high border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="Arjun Sharma" type="text"/>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold mb-2 ml-1">Street Address</label>
+            <input id="ship-address" class="w-full bg-surface-container-high border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="Apartment, suite, unit, etc." type="text"/>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-2 ml-1">City</label>
+            <input id="ship-city" class="w-full bg-surface-container-high border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="Mumbai" type="text"/>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-2 ml-1">Pincode</label>
+            <input id="ship-pin" class="w-full bg-surface-container-high border-none rounded-md px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-all" placeholder="400001" type="text"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Delivery Schedule -->
+      <section class="bg-surface-container-lowest rounded-xl p-8 hover:bg-surface-bright transition-all">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings:'FILL' 1;">schedule</span>
+          </div>
+          <h2 class="text-2xl font-bold">Delivery Schedule</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <label class="cursor-pointer"><input checked name="delivery" type="radio" class="peer sr-only"/>
+            <div class="p-4 rounded-lg bg-surface-container-low border-2 border-transparent peer-checked:border-primary-container peer-checked:bg-white transition-all">
+              <p class="font-bold text-sm">Tomorrow</p><p class="text-xs text-on-surface-variant">Morning (8AM – 11AM)</p>
+            </div></label>
+          <label class="cursor-pointer"><input name="delivery" type="radio" class="peer sr-only"/>
+            <div class="p-4 rounded-lg bg-surface-container-low border-2 border-transparent peer-checked:border-primary-container peer-checked:bg-white transition-all">
+              <p class="font-bold text-sm">Tomorrow</p><p class="text-xs text-on-surface-variant">Evening (5PM – 8PM)</p>
+            </div></label>
+          <label class="cursor-pointer"><input name="delivery" type="radio" class="peer sr-only"/>
+            <div class="p-4 rounded-lg bg-surface-container-low border-2 border-transparent peer-checked:border-primary-container peer-checked:bg-white transition-all">
+              <p class="font-bold text-sm">Wed, 24 May</p><p class="text-xs text-on-surface-variant">Standard Delivery</p>
+            </div></label>
+        </div>
+      </section>
+
+      <!-- Section 3: Payment Method -->
+      <section class="bg-surface-container-lowest rounded-xl p-8 hover:bg-surface-bright transition-all">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings:'FILL' 1;">payments</span>
+          </div>
+          <h2 class="text-2xl font-bold">Payment Method</h2>
+        </div>
+        <div class="space-y-4" id="payment-methods">
+          <label class="cursor-pointer block">
+            <input name="payment" type="radio" value="upi" checked class="peer sr-only"/>
+            <div class="p-4 rounded-lg bg-surface-container-low flex items-center justify-between border-2 border-transparent peer-checked:border-primary-container transition-all">
+              <div class="flex items-center gap-4">
+                <div class="bg-white p-2 rounded-md"><span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">account_balance_wallet</span></div>
+                <div><p class="font-bold">Razorpay / UPI</p><p class="text-xs text-on-surface-variant">Fast &amp; Secure Digital Payments</p></div>
+              </div>
+              <span class="material-symbols-outlined text-outline-variant peer-checked:text-primary">check_circle</span>
+            </div>
+          </label>
+          <label class="cursor-pointer block">
+            <input name="payment" type="radio" value="card" class="peer sr-only"/>
+            <div class="p-4 rounded-lg bg-surface-container-low flex items-center justify-between border-2 border-transparent peer-checked:border-primary-container transition-all">
+              <div class="flex items-center gap-4">
+                <div class="bg-white p-2 rounded-md"><span class="material-symbols-outlined">credit_card</span></div>
+                <div><p class="font-bold">Credit / Debit Card</p><p class="text-xs text-on-surface-variant">Visa, Mastercard, RuPay</p></div>
+              </div>
+              <span class="material-symbols-outlined text-outline-variant">radio_button_unchecked</span>
+            </div>
+          </label>
+          <label class="cursor-pointer block">
+            <input name="payment" type="radio" value="cod" class="peer sr-only"/>
+            <div class="p-4 rounded-lg bg-surface-container-low flex items-center justify-between border-2 border-transparent peer-checked:border-primary-container transition-all">
+              <div class="flex items-center gap-4">
+                <div class="bg-white p-2 rounded-md"><span class="material-symbols-outlined">local_shipping</span></div>
+                <div><p class="font-bold">Cash on Delivery</p><p class="text-xs text-on-surface-variant">Pay when you receive</p></div>
+              </div>
+              <span class="material-symbols-outlined text-outline-variant">radio_button_unchecked</span>
+            </div>
+          </label>
+        </div>
+        <div id="form-error" class="hidden mt-4 text-sm font-bold px-4 py-3 rounded-xl bg-error/10 text-error"></div>
+      </section>
+    </div>
+
+    <!-- Right Column: Order Summary Sidebar -->
+    <aside class="lg:col-span-4 sticky top-28">
+      <div class="bg-surface-container rounded-xl p-8 space-y-8">
+        <h2 class="text-2xl font-bold tracking-tight">Order Summary</h2>
+        <!-- Dynamic item list from cart -->
+        <div id="checkout-items" class="space-y-5"></div>
+        <!-- Totals -->
+        <div class="pt-6 border-t border-outline-variant/20 space-y-3">
+          <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Subtotal</span><span class="font-medium" id="co-subtotal">₹0.00</span></div>
+          <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Delivery Fee</span><span class="text-tertiary font-bold">FREE</span></div>
+          <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Taxes (GST 5%)</span><span class="font-medium" id="co-tax">₹0.00</span></div>
+          <div class="flex justify-between text-xl font-extrabold pt-4 border-t border-outline-variant/40"><span>Total</span><span class="text-primary" id="co-total">₹0.00</span></div>
+        </div>
+        <!-- CTA -->
+        <button onclick="placeOrder()" class="w-full bg-primary-container text-on-primary-container py-4 rounded-full font-bold text-lg shadow-xl shadow-primary/10 hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+          Complete Order
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+        <p class="text-[10px] text-center text-on-surface-variant uppercase tracking-widest font-bold">Secure SSL Encrypted Checkout</p>
+      </div>
+      <!-- Promo card -->
+      <div class="mt-6 bg-tertiary/10 p-6 rounded-xl flex items-center gap-4">
+        <span class="material-symbols-outlined text-tertiary text-4xl" style="font-variation-settings:'FILL' 1;">eco</span>
+        <div>
+          <p class="text-sm font-bold text-tertiary">Sustainability Impact</p>
+          <p class="text-xs text-tertiary/80">This order saves 1.2kg of plastic waste and supports local farmers.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-900 rounded-t-[3rem] mt-24 w-full px-12 py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+  <div class="flex flex-col items-center md:items-start gap-4">
+    <div class="text-xl font-extrabold text-white">FreshVeg</div>
+    <p class="text-slate-400 text-sm">© 2024 FreshVeg Market. Organic Precision.</p>
+  </div>
+  <div class="flex flex-wrap justify-center gap-8">
+    <a class="text-slate-400 text-sm hover:text-white transition-colors" href="#">Terms of Service</a>
+    <a class="text-slate-400 text-sm hover:text-white transition-colors" href="#">Privacy Policy</a>
+    <a class="text-slate-400 text-sm hover:text-white transition-colors" href="#">Sustainability Report</a>
+    <a class="text-slate-400 text-sm hover:text-white transition-colors" href="#">Support</a>
+  </div>
+</footer>
+
+<div class="fixed -bottom-48 -left-48 w-96 h-96 bg-primary/5 organic-shape -z-10 blur-3xl"></div>
+<div class="fixed -top-48 -right-48 w-96 h-96 bg-tertiary/5 organic-shape -z-10 blur-3xl"></div>
+
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { collection, addDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ── Session ────────────────────────────────────────────────────
+let currentUser = null;
+
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        currentUser = user;
+        const nameEl = document.getElementById('ship-name');
+        // Try to pre-fill name from Firestore
+        try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists() && nameEl && !nameEl.value) {
+                nameEl.value = userDoc.data().name;
+            }
+        } catch (e) {
+            console.error("Error fetching user profile:", e);
+        }
+    }
+});
+
+// ── Load cart into order summary ─────────────────────────────
+function loadSummary() {
+    const cart = JSON.parse(localStorage.getItem('freshveg_cart') || '[]');
+    const container = document.getElementById('checkout-items');
+
+    if (cart.length === 0) {
+        container.innerHTML = '<p class="text-on-surface-variant text-sm text-center py-4">Your cart is empty. <a href="index.html" class="text-primary font-bold">Go shopping</a></p>';
+        document.getElementById('co-subtotal').textContent = '₹0.00';
+        document.getElementById('co-tax').textContent = '₹0.00';
+        document.getElementById('co-total').textContent = '₹0.00';
+        return;
+    }
+
+    let subtotal = 0;
+    // cart.js stores quantity as `quantity`; vendor-listings.js uses `qty` — handle both
+    container.innerHTML = cart.map(item => {
+        const qty = item.quantity || item.qty || 1;
+        const lineTotal = (parseFloat(item.price) || 0) * qty;
+        subtotal += lineTotal;
+        const initial = (item.name || '?').charAt(0).toUpperCase();
+        const imgHtml = item.image
+            ? `<img src="${item.image}" class="w-full h-full object-cover" alt="${item.name}"/>`
+            : `<span class="text-2xl font-black text-primary/40">${initial}</span>`;
+        return `<div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 overflow-hidden">${imgHtml}</div>
+            <div class="flex-1 min-w-0">
+                <p class="font-bold text-sm leading-tight truncate">${item.name}</p>
+                <p class="text-xs text-on-surface-variant">${item.desc || item.unit || ''} × ${qty}</p>
+            </div>
+            <p class="font-bold text-sm shrink-0">₹${lineTotal.toFixed(2)}</p>
+        </div>`;
+    }).join('');
+
+    const tax = subtotal * 0.05;
+    const total = subtotal + tax;
+    document.getElementById('co-subtotal').textContent = '₹' + subtotal.toFixed(2);
+    document.getElementById('co-tax').textContent = '₹' + tax.toFixed(2);
+    document.getElementById('co-total').textContent = '₹' + total.toFixed(2);
+}
+
+// ── Place Order ──────────────────────────────────────────────
+window.placeOrder = async function() {
+    // Require login
+    if (!currentUser) {
+        localStorage.setItem('freshveg_redirect_after_login', 'checkout.html');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const name    = document.getElementById('ship-name').value.trim();
+    const address = document.getElementById('ship-address').value.trim();
+    const city    = document.getElementById('ship-city').value.trim();
+    const pin     = document.getElementById('ship-pin').value.trim();
+    const errEl   = document.getElementById('form-error');
+
+    if (!name || !address || !city || !pin) {
+        errEl.textContent = '⚠️ Please fill in all shipping address fields.';
+        errEl.classList.remove('hidden');
+        errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    if (!/^\d{6}$/.test(pin)) {
+        errEl.textContent = '⚠️ Please enter a valid 6-digit pincode.';
+        errEl.classList.remove('hidden');
+        return;
+    }
+    errEl.classList.add('hidden');
+
+    // Build order record
+    const cart = JSON.parse(localStorage.getItem('freshveg_cart') || '[]');
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    const subtotal = cart.reduce((s, i) => s + (parseFloat(i.price) || 0) * (i.quantity || i.qty || 1), 0);
+    const tax = subtotal * 0.05;
+    const orderId = 'FV-' + Math.floor(Math.random() * 90000 + 10000);
+    
+    const orderData = {
+        orderId: orderId,
+        date: new Date().toISOString(),
+        displayDate: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+        items: cart,
+        shipping: {
+            name: name,
+            address: address,
+            city: city,
+            pin: pin,
+            full: `${name}, ${address}, ${city} - ${pin}`
+        },
+        subtotal: subtotal.toFixed(2),
+        tax: tax.toFixed(2),
+        total: (subtotal + tax).toFixed(2),
+        status: 'Processing',
+        userUid: currentUser.uid,
+        userEmail: currentUser.email
+    };
+
+    try {
+        await addDoc(collection(db, "orders"), orderData);
+        // Clear cart
+        localStorage.removeItem('freshveg_cart');
+        // Show success overlay
+        document.getElementById('order-success').style.display = 'flex';
+        document.getElementById('success-order-id').textContent = '#' + orderId;
+    } catch (err) {
+        alert("Error placing order: " + err.message);
+    }
+}
+
+loadSummary();
+</script>
+</body></html>

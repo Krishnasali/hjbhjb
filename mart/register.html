@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Account | FreshVeg Market</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#9b9d9f",
+              "outline": "#757779",
+              "on-primary": "#fff1d5",
+              "primary-fixed-dim": "#eebe00",
+              "surface-bright": "#f5f6f8",
+              "on-secondary-fixed-variant": "#4e5869",
+              "on-error": "#ffefec",
+              "on-primary-fixed-variant": "#634e00",
+              "on-tertiary-container": "#005a3c",
+              "primary-dim": "#624d00",
+              "error-dim": "#b92902",
+              "secondary-fixed": "#d3ddf2",
+              "on-primary-fixed": "#413200",
+              "on-background": "#2c2f31",
+              "surface-container-low": "#eff1f3",
+              "background": "#f5f6f8",
+              "tertiary-fixed": "#69f6b8",
+              "on-surface-variant": "#595c5e",
+              "on-error-container": "#520c00",
+              "surface-container-highest": "#dadde0",
+              "secondary-fixed-dim": "#c5cfe3",
+              "on-surface": "#2c2f31",
+              "secondary-container": "#d3ddf2",
+              "tertiary-dim": "#005c3d",
+              "surface-container-high": "#e0e3e5",
+              "primary": "#705900",
+              "surface": "#f5f6f8",
+              "tertiary": "#006947",
+              "secondary": "#525c6d",
+              "on-secondary-fixed": "#323c4c",
+              "tertiary-fixed-dim": "#58e7ab",
+              "surface-variant": "#dadde0",
+              "on-tertiary-fixed": "#00452d",
+              "outline-variant": "#abadaf",
+              "on-secondary-container": "#454f5f",
+              "on-tertiary": "#c8ffe0",
+              "error": "#b02500",
+              "primary-fixed": "#fecb00",
+              "on-tertiary-fixed-variant": "#006544",
+              "error-container": "#f95630",
+              "surface-tint": "#705900",
+              "surface-container": "#e6e8eb",
+              "surface-dim": "#d1d5d8",
+              "inverse-surface": "#0c0f10",
+              "tertiary-container": "#69f6b8"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .organic-blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed relative">
+
+<a href="index.html" class="absolute top-8 left-8 inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-bold group z-50">
+    <span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+    Back to Home
+</a>
+
+<!-- TopNavBar Suppressed for Transactional Page Focus as per Shell Visibility Rules -->
+<main class="flex-grow flex items-center justify-center p-4 md:p-8 relative overflow-hidden">
+<!-- Organic Background Elements -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-container/20 organic-blob blur-3xl -z-10"></div>
+<div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-tertiary-container/10 organic-blob blur-3xl -z-10"></div>
+<div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-0 bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_32px_64px_-12px_rgba(44,47,49,0.08)]">
+<!-- Left Side: Form Content -->
+<div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center">
+<header class="mb-10">
+<div class="flex items-center gap-2 mb-2">
+    <span class="material-symbols-outlined scale-125" style="color: #4caf50;">eco</span>
+    <h1 class="text-2xl font-extrabold tracking-tighter" style="color: #4caf50;">FreshVeg Market</h1>
+</div>
+<h2 class="text-4xl font-extrabold text-on-surface tracking-tight mb-4">Join the Harvest</h2>
+<p class="text-on-surface-variant font-medium">Experience farm-fresh produce delivered with digital precision.</p>
+</header>
+<!-- Toggle Switch -->
+<div class="bg-surface-container-low p-1.5 rounded-full flex mb-10 max-w-md">
+<button id="tab-customer" onclick="switchRegTab('customer')" class="flex-1 py-3 px-6 rounded-full text-sm font-bold transition-all duration-300 bg-primary-container text-on-primary-container shadow-sm">
+                        Register as Customer
+                    </button>
+<button class="flex-1 py-3 px-6 rounded-full text-sm font-bold transition-all duration-300 text-on-surface-variant hover:text-on-surface" id="tab-farmer" onclick="switchRegTab('farmer')">
+    Farmer / Vendor
+</button>
+</div>
+
+<!-- CUSTOMER FORM -->
+<form class="space-y-6 max-w-xl" id="register-form" onsubmit="handleRegister(event)">
+<div id="register-msg" class="hidden text-sm font-bold px-4 py-3 rounded-xl"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Full Name</label>
+<input id="reg-name" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="John Doe" type="text" required/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Email Address</label>
+<input id="reg-email" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="john@example.com" type="email" required/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Password</label>
+<input id="reg-password" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password" required minlength="6"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Confirm Password</label>
+<input id="reg-confirm" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password" required/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center px-2">
+<label class="text-sm font-semibold text-on-surface-variant">Referral Code</label>
+<span class="text-[10px] uppercase tracking-widest font-bold text-outline">Optional</span>
+</div>
+<input id="reg-referral" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-outline-variant font-medium uppercase tracking-wider" placeholder="FRESH2024" type="text"/>
+</div>
+<div class="pt-4">
+<button class="w-full bg-gradient-to-r from-primary to-primary-fixed text-on-primary-container font-extrabold py-5 px-12 rounded-full flex items-center justify-center gap-3 shadow-[0_20px_40px_-8px_rgba(112,89,0,0.3)] hover:scale-[1.02] active:scale-95 transition-all group" type="submit">
+                            Create Account
+                            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</form>
+
+<!-- FARMER FORM -->
+<form class="space-y-6 max-w-xl hidden" id="farmer-form" onsubmit="handleFarmerRegister(event)">
+<div id="farmer-msg" class="hidden text-sm font-bold px-4 py-3 rounded-xl"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Farm / Business Name</label>
+<input id="f-name" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="Green Valley Farm" type="text" required/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Email Address</label>
+<input id="f-email" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="farm@example.com" type="email" required/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Phone Number</label>
+<input id="f-phone" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="+91 98765 43210" type="tel" required/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Farm Location</label>
+<input id="f-location" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="Pune, Maharashtra" type="text" required/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Password</label>
+<input id="f-password" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password" required minlength="6"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">Confirm Password</label>
+<input id="f-confirm" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password" required/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-on-surface-variant ml-2">What do you grow?</label>
+<input id="f-produce" class="w-full bg-surface-container-high border-none rounded-md px-6 py-4 focus:ring-2 focus:ring-tertiary/40 transition-all placeholder:text-outline-variant font-medium" placeholder="e.g. Tomatoes, Spinach, Carrots" type="text"/>
+</div>
+<div class="pt-4">
+<button class="w-full bg-gradient-to-r from-tertiary to-tertiary-dim text-on-tertiary font-extrabold py-5 px-12 rounded-full flex items-center justify-center gap-3 shadow-[0_20px_40px_-8px_rgba(0,105,71,0.3)] hover:scale-[1.02] active:scale-95 transition-all group" type="submit">
+                            Register Farm
+                            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">agriculture</span>
+</button>
+</div>
+</form>
+
+<footer class="mt-12 text-sm font-medium text-on-surface-variant">
+                    Already have an account? <a class="text-primary font-bold hover:underline decoration-2 underline-offset-4" href="login.html">Sign In</a>
+</footer>
+</div>
+<!-- Right Side: Visual Showcase -->
+<div class="lg:col-span-5 bg-surface-container-low relative flex flex-col items-center justify-center p-12 overflow-hidden">
+<!-- Decorative Circle -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/40 rounded-full blur-2xl"></div>
+<div class="relative z-10 w-full max-w-md">
+<div class="aspect-square relative mb-12 transform hover:rotate-2 transition-transform duration-700">
+<img alt="Fresh vegetable crate" class="w-full h-full object-cover rounded-xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwdxrvpWH3sC70iZnaAMVh0drCz6SRnOd8fyVhGXg9ThA0yXpTmIu3YxXG1XiSanQJkQojn6HDf-gpP-7FkeXAoNjUm72zXT7YvnuZXSnJktI5O9czMsrFdw8O6u6GrOD7lyZky6zDI4vzcZGnFQT58nkDV3q9UgeRffBjGwFxCjYFhif3c_W5tj7u4kYVwgsl7lEjzsLc1cNSEJtueZOSaoVyrD3lJBrqsLzT5UeB_Jn0LL64_FGzsl1TfPhLyoZO4FM_miYFTQ"/>
+<!-- Floating Glass Badge -->
+<div class="absolute -bottom-6 -right-6 bg-primary-container/80 backdrop-blur-xl p-6 rounded-lg shadow-xl border border-white/20 max-w-[200px]">
+<p class="text-[10px] font-extrabold uppercase tracking-widest text-on-primary-container mb-1">Origin Label</p>
+<p class="text-lg font-bold text-on-primary-container leading-tight">Direct from Earth</p>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-md flex flex-col items-center text-center gap-2 shadow-sm">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-xs font-bold text-on-surface leading-tight">Verified Growers</span>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-md flex flex-col items-center text-center gap-2 shadow-sm">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<span class="text-xs font-bold text-on-surface leading-tight">Eco-Friendly Packs</span>
+</div>
+</div>
+<div class="mt-12 text-center">
+<p class="text-on-surface-variant font-medium italic">"The freshest harvest from local Indian farms to your doorstep."</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-12 px-8 mt-auto bg-surface-container">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 w-full max-w-7xl mx-auto">
+<div class="text-lg font-bold text-on-surface">FreshVeg Market</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-plus-jakarta-sans text-xs font-medium uppercase tracking-widest text-on-surface-variant hover:underline decoration-[#FFCC00] decoration-2 underline-offset-4 transition-all duration-200" href="#">Privacy Policy</a>
+<a class="font-plus-jakarta-sans text-xs font-medium uppercase tracking-widest text-on-surface-variant hover:underline decoration-[#FFCC00] decoration-2 underline-offset-4 transition-all duration-200" href="#">Terms of Service</a>
+<a class="font-plus-jakarta-sans text-xs font-medium uppercase tracking-widest text-on-surface-variant hover:underline decoration-[#FFCC00] decoration-2 underline-offset-4 transition-all duration-200" href="#">Sustainability Report</a>
+<a class="font-plus-jakarta-sans text-xs font-medium uppercase tracking-widest text-on-surface-variant hover:underline decoration-[#FFCC00] decoration-2 underline-offset-4 transition-all duration-200" href="#">Contact Support</a>
+</div>
+<p class="font-plus-jakarta-sans text-xs font-medium uppercase tracking-widest text-on-surface-variant opacity-70">
+                © 2024 FreshVeg Market. Organic Precision in Every Byte.
+            </p>
+</div>
+</footer>
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ── Tab Switcher ───────────────────────────────────────────────
+window.switchRegTab = function(role) {
+    const customerForm = document.getElementById('register-form');
+    const farmerForm   = document.getElementById('farmer-form');
+    const tabCustomer  = document.getElementById('tab-customer');
+    const tabFarmer    = document.getElementById('tab-farmer');
+    if (role === 'farmer') {
+        farmerForm.classList.remove('hidden');
+        customerForm.classList.add('hidden');
+        tabFarmer.classList.add('bg-tertiary-container', 'text-on-tertiary-container', 'shadow-sm');
+        tabFarmer.classList.remove('text-on-surface-variant');
+        tabCustomer.classList.remove('bg-primary-container', 'text-on-primary-container', 'shadow-sm');
+        tabCustomer.classList.add('text-on-surface-variant');
+    } else {
+        customerForm.classList.remove('hidden');
+        farmerForm.classList.add('hidden');
+        tabCustomer.classList.add('bg-primary-container', 'text-on-primary-container', 'shadow-sm');
+        tabCustomer.classList.remove('text-on-surface-variant');
+        tabFarmer.classList.remove('bg-tertiary-container', 'text-on-tertiary-container', 'shadow-sm');
+        tabFarmer.classList.add('text-on-surface-variant');
+    }
+}
+
+// ── Shared helpers ──────────────────────────────────────────────
+function showMsg(id, msg, isError) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = 'text-sm font-bold px-4 py-3 rounded-xl ' + (isError ? 'bg-error/10 text-error' : 'bg-tertiary/10 text-tertiary');
+    el.classList.remove('hidden');
+}
+
+// ── Customer Registration ───────────────────────────────────────
+window.handleRegister = async function(e) {
+    e.preventDefault();
+    const name     = document.getElementById('reg-name').value.trim();
+    const email    = document.getElementById('reg-email').value.trim().toLowerCase();
+    const password = document.getElementById('reg-password').value;
+    const confirm  = document.getElementById('reg-confirm').value;
+
+    if (password !== confirm) { showMsg('register-msg', '❌ Passwords do not match.', true); return; }
+    
+    try {
+        console.log("Starting registration for:", email);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("Auth user created. UID:", user.uid);
+        
+        // Store extra profile data in Firestore
+        try {
+            await setDoc(doc(db, "users", user.uid), {
+                name,
+                email,
+                role: 'customer',
+                createdAt: new Date().toISOString()
+            });
+            console.log("Firestore profile created successfully.");
+        } catch (fsError) {
+            console.error("Firestore write failed:", fsError);
+            if (fsError.code === 'permission-denied') {
+                throw new Error("Database Permission Denied. Please ensure Firestore is in 'Test Mode' or rules allow writing to 'users' collection.");
+            }
+            throw fsError;
+        }
+
+        showMsg('register-msg', '✅ Account created! Redirecting to login…', false);
+        setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+    } catch (error) {
+        console.error("Registration error (Full Details):", error);
+        let errorMsg = '❌ Registration failed: ' + error.message;
+        if (error.code === 'auth/email-already-in-use') errorMsg = '❌ Email already registered. Try logging in.';
+        else if (error.code === 'auth/weak-password') errorMsg = '❌ Password should be at least 6 characters.';
+        showMsg('register-msg', errorMsg, true);
+    }
+}
+
+// ── Farmer Registration ─────────────────────────────────────────
+window.handleFarmerRegister = async function(e) {
+    e.preventDefault();
+    const name     = document.getElementById('f-name').value.trim();
+    const email    = document.getElementById('f-email').value.trim().toLowerCase();
+    const phone    = document.getElementById('f-phone').value.trim();
+    const location = document.getElementById('f-location').value.trim();
+    const produce  = document.getElementById('f-produce').value.trim();
+    const password = document.getElementById('f-password').value;
+    const confirm  = document.getElementById('f-confirm').value;
+
+    if (password !== confirm) { showMsg('farmer-msg', '❌ Passwords do not match.', true); return; }
+
+    try {
+        console.log("Starting farm registration for:", email);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("Auth user created for farmer. UID:", user.uid);
+
+        // Store farmer metadata in Firestore
+        try {
+            await setDoc(doc(db, "users", user.uid), {
+                name,
+                email,
+                phone,
+                location,
+                produce,
+                role: 'farmer',
+                createdAt: new Date().toISOString()
+            });
+            console.log("Firestore vendor profile created.");
+        } catch (fsError) {
+            console.error("Firestore write failed for farmer:", fsError);
+            if (fsError.code === 'permission-denied') {
+                throw new Error("Database Permission Denied. Check Firestore rules for 'users' collection.");
+            }
+            throw fsError;
+        }
+
+        showMsg('farmer-msg', '✅ Farm registered! You can now log in as a Vendor.', false);
+        setTimeout(() => { window.location.href = 'login.html'; }, 1800);
+    } catch (error) {
+        console.error("Farmer registration error (Full Details):", error);
+        let errorMsg = '❌ Farm registration failed: ' + error.message;
+        if (error.code === 'auth/email-already-in-use') errorMsg = '❌ Email already registered.';
+        else if (error.code === 'auth/weak-password') errorMsg = '❌ Password should be at least 6 characters.';
+        showMsg('farmer-msg', errorMsg, true);
+    }
+}
+</script>
+</body>
+</html>

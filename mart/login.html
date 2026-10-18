@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - FreshVeg Market</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#eef3ff",
+                        "on-primary-fixed-variant": "#634e00",
+                        "on-surface-variant": "#595c5e",
+                        "on-secondary-container": "#454f5f",
+                        "primary-fixed-dim": "#eebe00",
+                        "on-primary-container": "#584500",
+                        "inverse-on-surface": "#9b9d9f",
+                        "on-secondary-fixed": "#323c4c",
+                        "tertiary-container": "#69f6b8",
+                        "tertiary": "#006947",
+                        "tertiary-fixed": "#69f6b8",
+                        "inverse-primary": "#fecb00",
+                        "secondary": "#525c6d",
+                        "secondary-container": "#d3ddf2",
+                        "surface-container-high": "#e0e3e5",
+                        "on-primary-fixed": "#413200",
+                        "error-container": "#f95630",
+                        "on-error-container": "#520c00",
+                        "surface-container": "#e6e8eb",
+                        "primary": "#705900",
+                        "inverse-surface": "#0c0f10",
+                        "error-dim": "#b92902",
+                        "primary-fixed": "#fecb00",
+                        "primary-container": "#fecb00",
+                        "on-surface": "#2c2f31",
+                        "on-error": "#ffefec",
+                        "surface-container-highest": "#dadde0",
+                        "primary-dim": "#624d00",
+                        "error": "#b02500",
+                        "secondary-dim": "#465061",
+                        "on-secondary-fixed-variant": "#4e5869",
+                        "surface-variant": "#dadde0",
+                        "surface-tint": "#705900",
+                        "outline": "#757779",
+                        "outline-variant": "#abadaf",
+                        "on-background": "#2c2f31",
+                        "secondary-fixed": "#d3ddf2",
+                        "surface": "#f5f6f8",
+                        "on-tertiary-container": "#005a3c",
+                        "on-tertiary-fixed": "#00452d",
+                        "surface-container-low": "#eff1f3",
+                        "secondary-fixed-dim": "#c5cfe3",
+                        "surface-bright": "#f5f6f8",
+                        "on-primary": "#fff1d5",
+                        "tertiary-dim": "#005c3d",
+                        "on-tertiary-fixed-variant": "#006544",
+                        "surface-dim": "#d1d5d8",
+                        "on-tertiary": "#c8ffe0",
+                        "background": "#f5f6f8",
+                        "tertiary-fixed-dim": "#58e7ab"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f5f6f8;
+        }
+        .form-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        [data-role="seller"] { display: none; }
+        .is-seller [data-role="buyer"] { display: none; }
+        .is-seller [data-role="seller"] { display: block; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col items-center justify-center p-4 md:p-8 transition-colors duration-500 relative" id="main-body">
+
+
+<!-- Brand Header -->
+<header class="mb-10 text-center flex flex-col items-center justify-center">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="material-symbols-outlined scale-125" style="color: #4caf50;">eco</span>
+    <h1 class="text-3xl font-black tracking-tight" style="color: #4caf50;">FreshVeg Market</h1>
+  </div>
+  <p class="text-on-surface-variant font-medium text-sm mt-1">Organic Precision in Every Delivery</p>
+</header>
+<main class="w-full max-w-md">
+<!-- Role Switcher Tabs -->
+<div id="login-tabs" class="flex p-1 bg-surface-container rounded-full mb-6 border border-outline-variant/20">
+<button class="flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 bg-surface-container-lowest shadow-sm text-primary" id="tab-buyer" onclick="switchRole('buyer')">
+                Customer
+            </button>
+<button class="flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 text-outline hover:text-on-surface" id="tab-seller" onclick="switchRole('seller')">
+                Farmer / Vendor
+            </button>
+</div>
+    <!-- Profile Repair Section (Hidden by default) -->
+    <div id="repair-section" class="hidden w-full max-w-md bg-surface-container-high p-8 rounded-2xl shadow-xl border-2 border-primary/20 mb-8 animate-in fade-in slide-in-from-top-4 duration-500">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-primary text-3xl">build_circle</span>
+            <h3 class="text-xl font-bold">Repair Your Profile</h3>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-6">Your account exists, but your profile details are missing from our database. Let's fix that!</p>
+        
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label class="text-xs font-bold uppercase tracking-widest text-outline ml-2">Full Name</label>
+                <input id="repair-name" class="w-full bg-surface border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-primary transition-all placeholder:text-outline-variant font-medium" placeholder="Enter your name" type="text" />
+            </div>
+            <button onclick="handleRepairProfile()" class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">save</span>
+                Create Profile & Log In
+            </button>
+            <button onclick="cancelRepair()" class="w-full text-xs font-bold text-outline hover:text-on-surface transition-colors">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <!-- Login Container -->
+<div class="bg-surface-container-lowest rounded-2xl p-8 shadow-xl border border-outline-variant/10 relative overflow-hidden" id="login-container">
+<!-- Buyer Form -->
+<div class="form-transition" data-role="buyer">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-on-surface">Customer Login</h2>
+<p class="text-on-surface-variant text-sm mt-1">Order fresh produce today</p>
+</div>
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">shopping_basket</span>
+</div>
+</div>
+<form class="space-y-5" onsubmit="handleLogin(event)">
+<div id="login-msg" class="hidden text-sm font-bold px-4 py-3 rounded-xl"></div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline pl-1">Email Address</label>
+<input id="login-email" class="w-full bg-surface-container border-none rounded-xl px-5 py-3.5 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/40 transition-all" placeholder="name@example.com" type="email" required/>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center pl-1">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline">Password</label>
+<a class="text-[10px] font-bold text-primary hover:underline uppercase tracking-tighter" href="#">Forgot?</a>
+</div>
+<input id="login-password" class="w-full bg-surface-container border-none rounded-xl px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 transition-all" placeholder="••••••••" type="password" required/>
+</div>
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-[0.98]" type="submit">
+                        Log In as Buyer
+                    </button>
+</form>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 text-center">
+<p class="text-sm text-on-surface-variant">New to FreshVeg? 
+                        <a class="text-primary font-bold hover:underline" href="register.html">Create Account</a>
+</p>
+</div>
+</div>
+<!-- Seller Form -->
+<div class="form-transition" data-role="seller">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-on-surface">Vendor Login</h2>
+<p class="text-on-surface-variant text-sm mt-1">Manage your digital harvest</p>
+</div>
+<div class="bg-tertiary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-tertiary">agriculture</span>
+</div>
+</div>
+<form class="space-y-5" onsubmit="handleVendorLogin(event)">
+<div id="vendor-login-msg" class="hidden text-sm font-bold px-4 py-3 rounded-xl"></div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline pl-1">Email Address</label>
+<input id="vendor-email" class="w-full bg-surface-container-low border-none rounded-xl px-5 py-3.5 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-tertiary/40 transition-all" placeholder="vendor@farm.com" type="email" required/>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center pl-1">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline">Password</label>
+<a class="text-[10px] font-bold text-tertiary hover:underline uppercase tracking-tighter" href="#">Support?</a>
+</div>
+<input id="vendor-password" class="w-full bg-surface-container-low border-none rounded-xl px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-tertiary/40 transition-all" placeholder="••••••••" type="password" required/>
+</div>
+<button class="w-full bg-on-surface text-surface font-bold py-4 rounded-xl shadow-lg hover:bg-on-surface-variant transition-all active:scale-[0.98]" type="submit">
+                        Access Dashboard
+                    </button>
+</form>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 text-center">
+<p class="text-sm text-on-surface-variant">Want to sell with us? 
+                        <a class="text-tertiary font-bold hover:underline" href="register.html">Register Farm</a>
+</p>
+</div>
+</div>
+</div>
+<!-- Role-Specific Footnotes -->
+<div class="mt-6 flex items-center justify-center gap-6 text-[10px] font-bold text-outline transition-opacity duration-300" id="role-perks">
+<div class="flex gap-4" data-role="buyer">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">verified_user</span> SECURE</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">local_shipping</span> 24H DELIVERY</span>
+</div>
+<div class="flex gap-4 hidden" data-role="seller">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">payments</span> WEEKLY PAYOUTS</span>
+<span class="flex items-center gap-1">₹0 COMM. START</span>
+</div>
+</div>
+</main>
+<!-- Visual Overlap Decoration -->
+<div class="fixed bottom-0 right-0 -z-10 w-96 h-96 opacity-10 blur-3xl pointer-events-none transition-colors duration-700" id="bg-glow">
+<div class="bg-primary-container w-full h-full rounded-full"></div>
+</div>
+<div class="fixed top-0 left-0 -z-10 w-64 h-64 opacity-5 blur-3xl pointer-events-none">
+<div class="bg-tertiary-container w-full h-full rounded-full"></div>
+</div>
+<!-- Footer Meta -->
+<footer class="mt-12 text-center">
+<nav class="flex flex-wrap justify-center gap-6 mb-4">
+<a class="text-[10px] font-bold uppercase tracking-widest text-outline hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="text-[10px] font-bold uppercase tracking-widest text-outline hover:text-primary transition-colors" href="#">Terms</a>
+<a class="text-[10px] font-bold uppercase tracking-widest text-outline hover:text-primary transition-colors" href="#">Help</a>
+</nav>
+<p class="text-[9px] font-bold uppercase tracking-[0.2em] text-outline-variant">© 2024 FreshVeg Market. Organic Precision.</p>
+</footer>
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+window.switchRole = function(role) {
+    const body = document.getElementById('main-body');
+    const tabBuyer = document.getElementById('tab-buyer');
+    const tabSeller = document.getElementById('tab-seller');
+    const brandHighlight = document.getElementById('brand-highlight');
+    const bgGlow = document.getElementById('bg-glow').firstElementChild;
+
+    if (role === 'seller') {
+        body.classList.add('is-seller');
+        tabSeller.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-tertiary');
+        tabSeller.classList.remove('text-outline');
+        tabBuyer.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+        tabBuyer.classList.add('text-outline');
+        brandHighlight.classList.replace('text-primary', 'text-tertiary');
+        bgGlow.classList.replace('bg-primary-container', 'bg-tertiary-container');
+    } else {
+        body.classList.remove('is-seller');
+        tabBuyer.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+        tabBuyer.classList.remove('text-outline');
+        tabSeller.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-tertiary');
+        tabSeller.classList.add('text-outline');
+        brandHighlight.classList.replace('text-tertiary', 'text-primary');
+        bgGlow.classList.replace('bg-tertiary-container', 'bg-primary-container');
+    }
+}
+
+// ── Customer Login ─────────────────────────────────────
+function showLoginMsg(msg, isError) {
+    const el = document.getElementById('login-msg');
+    el.textContent = msg;
+    el.className = 'text-sm font-bold px-4 py-3 rounded-xl ' + (isError ? 'bg-error/10 text-error' : 'bg-tertiary/10 text-tertiary');
+    el.classList.remove('hidden');
+}
+
+window.handleLogin = async function(e) {
+    e.preventDefault();
+    const email    = document.getElementById('login-email').value.trim().toLowerCase();
+    const password = document.getElementById('login-password').value;
+    
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("Login successful for UID:", user.uid);
+        
+        // Fetch role from Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            if (userData.role === 'customer') {
+                showLoginMsg('✅ Welcome back, ' + (userData.name || 'User') + '! Redirecting...', false);
+                localStorage.setItem('freshveg_session', JSON.stringify({ name: userData.name, email: userData.email, uid: user.uid }));
+                
+                const redirect = localStorage.getItem('freshveg_redirect_after_login') || 'index.html';
+                localStorage.removeItem('freshveg_redirect_after_login');
+                setTimeout(() => { window.location.href = redirect; }, 1500);
+            } else {
+                showLoginMsg('❌ This account is registered as a ' + userData.role + '. Use the correct tab.', true);
+            }
+        } else {
+            console.warn("No Firestore profile found for UID:", user.uid);
+            window.pendingRepairUser = user;
+            window.pendingRepairRole = 'customer';
+            showRepairUI();
+        }
+    } catch (error) {
+        console.error("Login error (Full Details):", error);
+        let msg = '❌ Login failed: ' + error.message;
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+            msg = '❌ Invalid email or password.';
+        } else if (error.code === 'permission-denied') {
+            msg = '❌ Database Permission Denied. Please enable Firestore in "Test Mode" or check rules.';
+        }
+        showLoginMsg(msg, true);
+    }
+}
+
+// ── Vendor Login ───────────────────────────────────────
+function showVendorMsg(msg, isError) {
+    const el = document.getElementById('vendor-login-msg');
+    el.textContent = msg;
+    el.className = 'text-sm font-bold px-4 py-3 rounded-xl ' + (isError ? 'bg-error/10 text-error' : 'bg-tertiary/10 text-tertiary');
+    el.classList.remove('hidden');
+}
+
+window.handleVendorLogin = async function(e) {
+    e.preventDefault();
+    const email    = document.getElementById('vendor-email').value.trim().toLowerCase();
+    const password = document.getElementById('vendor-password').value;
+    
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("Vendor Login successful for UID:", user.uid);
+
+        // Fetch role from Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            if (userData.role === 'farmer') {
+                showVendorMsg('✅ Welcome, ' + (userData.name || 'Vendor') + '! Loading...', false);
+                localStorage.setItem('freshveg_vendor_session', JSON.stringify({ name: userData.name, email: userData.email, uid: user.uid }));
+                setTimeout(() => { window.location.href = 'vendor-dashboard.html'; }, 1500);
+            } else {
+                showVendorMsg('❌ This account is registered as a ' + userData.role + '. Use the correct tab.', true);
+            }
+        } else {
+            console.warn("No Vendor profile found for UID:", user.uid);
+            window.pendingRepairUser = user;
+            window.pendingRepairRole = 'farmer';
+            showRepairUI();
+        }
+    } catch (error) {
+        console.error("Vendor login error (Full Details):", error);
+        let msg = '❌ Login failed: ' + error.message;
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+            msg = '❌ Invalid credentials.';
+        } else if (error.code === 'permission-denied') {
+            msg = '❌ Database Permission Denied. Check Firestore rules.';
+        }
+        showVendorMsg(msg, true);
+    }
+}
+
+// ── Profile Repair Logic ───────────────────────────────────────
+window.showRepairUI = function() {
+    const tabs = document.getElementById('login-tabs');
+    const container = document.getElementById('login-container');
+    const repair = document.getElementById('repair-section');
+    
+    if (tabs) tabs.classList.add('hidden');
+    if (container) container.classList.add('hidden');
+    if (repair) repair.classList.remove('hidden');
+    
+    const nameInput = document.getElementById('repair-name');
+    if (nameInput) nameInput.focus();
+}
+
+window.cancelRepair = function() {
+    const tabs = document.getElementById('login-tabs');
+    const container = document.getElementById('login-container');
+    const repair = document.getElementById('repair-section');
+    
+    if (repair) repair.classList.add('hidden');
+    if (tabs) tabs.classList.remove('hidden');
+    if (container) container.classList.remove('hidden');
+    
+    // Switch back to the correct form
+    if (window.switchRole) {
+        window.switchRole(window.pendingRepairRole === 'farmer' ? 'seller' : 'buyer');
+    }
+    window.pendingRepairUser = null;
+}
+
+window.handleRepairProfile = async function() {
+    const name = document.getElementById('repair-name').value.trim();
+    if (!name) { alert("Please enter your name to complete your profile."); return; }
+    
+    const user = window.pendingRepairUser;
+    const role = window.pendingRepairRole;
+    
+    if (!user) return;
+
+    try {
+        console.log("Repairing profile for UID:", user.uid, "as", role);
+        await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            email: user.email,
+            role: role,
+            createdAt: new Date().toISOString(),
+            repaired: true
+        });
+        
+        console.log("Profile repaired successfully.");
+        
+        // Auto-login
+        if (role === 'customer') {
+            localStorage.setItem('freshveg_session', JSON.stringify({ name: name, email: user.email, uid: user.uid }));
+            window.location.href = 'index.html';
+        } else {
+            localStorage.setItem('freshveg_vendor_session', JSON.stringify({ name: name, email: user.email, uid: user.uid }));
+            window.location.href = 'vendor-dashboard.html';
+        }
+    } catch (error) {
+        console.error("Repair failed:", error);
+        alert("Repair failed: " + error.message + "\n\nMake sure your Firestore rules allow writing to the 'users' collection.");
+    }
+}
+</script>
+</body>
+</html>

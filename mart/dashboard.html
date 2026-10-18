@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FreshVeg Market - Buyer Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-dim": "#465061",
+              "surface-container-high": "#e0e3e5",
+              "tertiary-dim": "#005c3d",
+              "outline-variant": "#abadaf",
+              "primary": "#705900",
+              "on-primary-fixed": "#413200",
+              "surface": "#f5f6f8",
+              "on-primary-fixed-variant": "#634e00",
+              "on-tertiary": "#c8ffe0",
+              "surface-tint": "#705900",
+              "tertiary-fixed-dim": "#58e7ab",
+              "tertiary": "#006947",
+              "on-primary-container": "#584500",
+              "secondary-container": "#d3ddf2",
+              "on-secondary-container": "#454f5f",
+              "surface-container": "#e6e8eb",
+              "surface-bright": "#f5f6f8",
+              "on-surface-variant": "#595c5e",
+              "on-tertiary-fixed": "#00452d",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-container": "#69f6b8",
+              "error-dim": "#b92902",
+              "inverse-surface": "#0c0f10",
+              "primary-container": "#fecb00",
+              "on-secondary-fixed-variant": "#4e5869",
+              "surface-dim": "#d1d5d8",
+              "secondary-fixed-dim": "#c5cfe3",
+              "inverse-primary": "#fecb00",
+              "on-primary": "#fff1d5",
+              "primary-fixed": "#fecb00",
+              "inverse-on-surface": "#9b9d9f",
+              "on-error": "#ffefec",
+              "surface-container-low": "#eff1f3",
+              "on-error-container": "#520c00",
+              "on-tertiary-container": "#005a3c",
+              "error": "#b02500",
+              "surface-container-highest": "#dadde0",
+              "on-surface": "#2c2f31",
+              "error-container": "#f95630",
+              "secondary": "#525c6d",
+              "on-secondary-fixed": "#323c4c",
+              "surface-variant": "#dadde0",
+              "secondary-fixed": "#d3ddf2",
+              "primary-fixed-dim": "#eebe00",
+              "on-secondary": "#eef3ff",
+              "background": "#f5f6f8",
+              "tertiary-fixed": "#69f6b8",
+              "on-background": "#2c2f31",
+              "on-tertiary-fixed-variant": "#006544",
+              "primary-dim": "#624d00",
+              "outline": "#757779"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f5f6f8; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .tonal-transition { transition: background-color 0.3s ease; }
+      .organic-curve { border-radius: 64% 36% 70% 30% / 30% 60% 40% 70%; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm h-20 px-8 flex justify-between items-center">
+  <a href="index.html" class="text-2xl font-black tracking-tight hover:opacity-80 transition-opacity" style="color: #4caf50;">FreshVeg <span style="color: #4caf50;">Market</span></a>
+  <div class="hidden md:flex items-center gap-8">
+    <a class="text-primary font-bold border-b-2 border-primary py-2 transition-colors duration-300" href="#">Overview</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="index.html">Marketplace</a>
+  </div>
+  <div class="flex items-center gap-4">
+    <a href="cart.html" class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-low rounded-full transition-all no-underline">shopping_basket</a>
+    <button onclick="doLogout()" class="text-sm font-bold text-error hover:underline">Logout</button>
+    <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-black text-on-primary-container text-lg" id="nav-avatar">A</div>
+  </div>
+</nav>
+
+<!-- Sidebar Shell -->
+<aside class="hidden md:flex h-screen w-72 fixed left-0 top-0 z-40 bg-surface-container flex-col py-8 gap-2 pt-28">
+  <div class="px-8 mb-8">
+    <h2 class="text-on-surface font-medium text-lg" id="sidebar-greeting">Welcome back!</h2>
+    <p class="text-on-surface-variant text-sm" id="sidebar-email">Loading...</p>
+  </div>
+  <nav class="flex flex-col gap-1">
+    <a class="flex items-center gap-4 text-on-surface bg-surface-container-lowest rounded-full px-6 py-3 mx-4 shadow-sm transition-transform" href="#">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+      <span class="font-semibold text-sm">Overview</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 mx-4 hover:bg-surface-container-high rounded-full transition-all" href="index.html">
+      <span class="material-symbols-outlined">store</span>
+      <span class="font-semibold text-sm">Go Shopping</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 mx-4 hover:bg-surface-container-high rounded-full transition-all" href="cart.html">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span class="font-semibold text-sm">My Cart</span>
+    </a>
+    <a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 mx-4 hover:bg-surface-container-high rounded-full transition-all" href="farmers.html">
+      <span class="material-symbols-outlined">groups</span>
+      <span class="font-semibold text-sm">Our Farmers</span>
+    </a>
+    <button onclick="openSettingsModal()" class="flex items-center gap-4 text-on-surface-variant px-6 py-3 mx-4 hover:bg-surface-container-high rounded-full transition-all w-full text-left">
+      <span class="material-symbols-outlined">settings</span>
+      <span class="font-semibold text-sm">Settings</span>
+    </button>
+  </nav>
+  <div class="mt-auto px-6">
+    <div class="bg-primary-container/20 p-6 rounded-xl border-2 border-primary/10">
+      <p class="text-xs font-bold text-primary tracking-widest uppercase mb-2">Pro Plan</p>
+      <p class="text-sm text-on-surface font-medium mb-4">Unlock free delivery on all organic baskets.</p>
+      <button class="w-full bg-primary text-on-primary py-2 rounded-full font-bold text-sm shadow-sm hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+    </div>
+  </div>
+  <div class="flex flex-col gap-1 mt-6">
+    <a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 mx-4 hover:bg-surface-container-high rounded-full transition-all" href="#">
+      <span class="material-symbols-outlined">help</span>
+      <span class="font-semibold text-sm">Support</span>
+    </a>
+    <button onclick="doLogout()" class="flex items-center gap-4 text-on-surface-variant px-6 py-3 mx-4 hover:bg-surface-container-high rounded-full transition-all text-left w-full">
+      <span class="material-symbols-outlined text-error">logout</span>
+      <span class="font-semibold text-sm">Logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Main Content Area -->
+<main class="md:ml-72 pt-28 px-8 pb-12 min-h-screen">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-10 mb-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="absolute -right-20 -top-20 w-80 h-80 bg-primary-container/30 organic-curve blur-3xl -z-0"></div>
+    <div class="relative z-10 max-w-xl">
+      <h1 class="text-5xl font-extrabold text-on-surface mb-4 tracking-tight leading-tight">Your kitchen is <span class="text-primary italic" id="hero-name">thriving</span>!</h1>
+      <p class="text-lg text-on-surface-variant mb-8 font-medium">You've saved 14kg of CO2 this month by buying local. Your next harvest arrives in 4 hours.</p>
+      <div class="flex gap-4">
+        <a href="index.html" class="bg-primary text-on-primary px-8 py-4 rounded-full font-extrabold flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+          Explore Today's Picks
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    <div class="relative z-10 w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+      <div class="absolute inset-0 bg-primary-container organic-curve rotate-12 scale-90 opacity-20"></div>
+      <div class="relative">
+        <img alt="Fresh Organic Vegetables" class="w-64 h-64 object-cover rounded-full shadow-2xl border-8 border-surface-container-lowest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcure8i3jnM_Frx4VIEwpQpQWbBufWc7x4G0twl-671RntyKeTgJ3w43WaaArIo0nLFre4eQDvEAs9NqepRUkWsl5WV8gXKoS5BfFmC7B7HhodJPwETulvkBpnBPWR7FHD7SLY0l6cn994kspGax4fAIwnMqRct9imGVXs-TGZJhMIxOJCa-yc8BX8dK2KirEPLb_-XwzcEpHkRVar3myK4RVC077wp4_tS8-Q8KbkmFreST4quYB_mVA61XWkfL3hipLWk3ZgUA"/>
+        <div class="absolute -bottom-4 -left-4 bg-surface-container-lowest p-4 rounded-2xl shadow-xl flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+          <div>
+            <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Freshness</p>
+            <p class="text-sm font-black text-on-surface">100% Organic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid: Orders and Featured -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Recent Orders Section -->
+    <div class="lg:col-span-2 space-y-6">
+      <div class="flex items-center justify-between">
+        <h3 class="text-2xl font-bold text-on-surface">My Orders</h3>
+        <a href="index.html" class="text-primary font-bold text-sm hover:underline">+ Shop More</a>
+      </div>
+      <div id="orders-container" class="space-y-4">
+        <div class="p-8 text-center text-on-surface-variant text-sm">Loading your orders…</div>
+      </div>
+    </div>
+
+    <!-- Saved for Later Sidebar Grid -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h3 class="text-2xl font-bold text-on-surface">Saved for Later</h3>
+        <button class="material-symbols-outlined text-on-surface-variant">more_horiz</button>
+      </div>
+      <div class="grid grid-cols-1 gap-4">
+        <div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 group">
+          <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+            <img alt="Avocados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhA4AVROkEsJuNAyxzNHJ-23bc9_-VRGaSkTrzGTx6znGp62rx60ltHKuNiir29krvcwOK79VY6L0q3SLI9OTnqdl13lT6aRyhEsKRkW18duHh3PQbTbcS_EwhKRvlHLq4ICH7ZEoJlpCqRonJs7XAIUoddf8dcc-gaIS4brNyjx5GvGbhlXDLor5x5Hz5D-pPRRfEpuBuRGM_rpUpf7Mh0qdaqBePM053TfhdZEcZcLyqD8mX-Cz_FMdpvkdC7pCvyB4nF_2stw"/>
+          </div>
+          <div class="flex-1">
+            <h5 class="font-bold text-on-surface">Avocados</h5>
+            <p class="text-xs text-on-surface-variant mb-2">Imported Hass • 2 Units</p>
+            <div class="flex items-center justify-between">
+              <p class="font-black text-primary">₹240</p>
+              <button class="bg-surface-container text-on-surface p-1.5 rounded-full hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 group">
+          <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+            <img alt="Broccoli" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqxCBJ2e7mVFv0WLt3BRdkNWlDRYk3OaM27rRfob94qb0-SHFYC0tlaBrGTYjxAyFlyLpQArN51Hwe4BZUi4BbgYjWhgzpas7PNcx6i16wIkbbMS8KykQSsH2JviI4CvMMtedSkts2ARiUBytd6loPUiix4T9PSxjj-ceIue9zXb7yE7w8d1fMnhvxuqbg0C-vv_8h2Sv7DucXNBaT0nRVZ8kMqC9P9mOLS-bQsvKsWd9c1fwZtrIgS4JK3cCihTcP0odUcuf44Q"/>
+          </div>
+          <div class="flex-1">
+            <h5 class="font-bold text-on-surface">Broccoli</h5>
+            <p class="text-xs text-on-surface-variant mb-2">Local Farm • 500g</p>
+            <div class="flex items-center justify-between">
+              <p class="font-black text-primary">₹95</p>
+              <button class="bg-surface-container text-on-surface p-1.5 rounded-full hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-surface-container p-6 rounded-xl relative overflow-hidden">
+        <div class="absolute -right-4 -bottom-4 opacity-10 rotate-12">
+          <span class="material-symbols-outlined text-[8rem]" style="font-variation-settings: 'FILL' 1;">eco</span>
+        </div>
+        <h5 class="text-on-surface font-bold text-lg mb-1">Harvest Points</h5>
+        <p class="text-3xl font-black text-primary mb-2">2,450 <span class="text-sm font-medium text-on-surface-variant">pts</span></p>
+        <div class="w-full bg-surface-container-highest h-2 rounded-full mb-4">
+          <div class="bg-primary h-full rounded-full w-3/4"></div>
+        </div>
+        <p class="text-xs text-on-surface-variant font-medium">550 pts away from your next free basket!</p>
+      </div>
+
+    </div>
+  </div>
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="fixed inset-0 z-[100] bg-black/40 hidden items-center justify-center p-4">
+  <div class="bg-surface-container-lowest rounded-2xl p-8 w-full max-w-lg shadow-2xl relative">
+    <div class="flex items-center justify-between mb-8">
+      <h3 class="text-2xl font-extrabold text-on-surface">Account Settings</h3>
+      <button onclick="closeSettingsModal()" class="p-2 hover:bg-surface-container rounded-full text-on-surface-variant">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <div class="space-y-8">
+      <!-- Profile Info -->
+      <div class="bg-surface-container/30 p-6 rounded-xl border border-outline-variant/10">
+        <h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Profile Information</h4>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center font-black text-on-primary-container text-lg" id="settings-avatar">A</div>
+          <div>
+            <p class="text-sm font-bold text-on-surface" id="settings-name">Loading...</p>
+            <p class="text-xs text-on-surface-variant" id="settings-email">Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Section -->
+      <div>
+        <h4 class="text-xs font-bold text-error uppercase tracking-widest mb-4">Danger Zone</h4>
+        <div class="bg-error/5 p-6 rounded-xl border border-error/10">
+          <p class="text-sm font-bold text-on-surface mb-1">Delete Account</p>
+          <p class="text-xs text-on-surface-variant mb-6">Permanently remove your account and all data from our servers. This action is irreversible.</p>
+          <button onclick="confirmDeleteAccount()" class="w-full bg-error/10 text-error py-3 rounded-full font-bold text-sm hover:bg-error hover:text-white transition-all">
+            Delete My Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account Confirmation Modal -->
+<div id="delete-confirm-modal" class="fixed inset-0 z-[100] bg-black/40 hidden items-center justify-center p-4">
+  <div class="bg-surface-container-lowest rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+    <div class="w-16 h-16 bg-error/10 text-error rounded-full flex items-center justify-center mx-auto mb-6">
+      <span class="material-symbols-outlined text-4xl">warning</span>
+    </div>
+    <h3 class="text-2xl font-extrabold text-on-surface text-center mb-2">Permanently delete account?</h3>
+    <p class="text-on-surface-variant text-center mb-8">This action cannot be undone. All your orders, harvest points, and profile data will be permanently removed from our system.</p>
+    
+    <div class="flex flex-col gap-3">
+      <button id="confirm-delete-btn" onclick="executeAccountDeletion()" class="w-full bg-error text-white py-4 rounded-full font-extrabold shadow-lg shadow-error/20 hover:opacity-90 transition-all flex items-center justify-center gap-2">
+        <span id="delete-spinner" class="hidden animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full"></span>
+        Confirm Permanent Deletion
+      </button>
+      <button onclick="closeDeleteModal()" class="w-full bg-surface-container text-on-surface py-4 rounded-full font-bold hover:bg-surface-container-high transition-all">
+        Keep My Account
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Contextual FAB for quick shop -->
+<a href="cart.html" class="fixed bottom-10 right-10 w-16 h-16 bg-primary-fixed text-on-primary-fixed rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50">
+  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+</a>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface/90 backdrop-blur-xl h-20 flex items-center justify-around px-4 z-50 border-t border-outline-variant/10">
+  <a class="flex flex-col items-center gap-1 text-primary" href="#">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+  </a>
+  <a class="flex flex-col items-center gap-1 text-on-surface-variant" href="index.html">
+    <span class="material-symbols-outlined">store</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Shop</span>
+  </a>
+  <a class="flex flex-col items-center gap-1 text-on-surface-variant" href="cart.html">
+    <span class="material-symbols-outlined">shopping_cart</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Cart</span>
+  </a>
+  <button onclick="doLogout()" class="flex flex-col items-center gap-1 text-on-surface-variant">
+    <span class="material-symbols-outlined">logout</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Logout</span>
+  </button>
+</nav>
+
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { collection, query, where, onSnapshot, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// ── Settings Modal ───────────────────────────────────────
+window.openSettingsModal = function() {
+    document.getElementById('settings-modal').classList.remove('hidden');
+    document.getElementById('settings-modal').classList.add('flex');
+}
+
+window.closeSettingsModal = function() {
+    document.getElementById('settings-modal').classList.add('hidden');
+    document.getElementById('settings-modal').classList.remove('flex');
+}
+
+// ── Account Deletion ───────────────────────────────────────
+window.confirmDeleteAccount = function() {
+    closeSettingsModal(); // Close settings before showing delete confirmation
+    document.getElementById('delete-confirm-modal').classList.remove('hidden');
+    document.getElementById('delete-confirm-modal').classList.add('flex');
+}
+
+window.closeDeleteModal = function() {
+    document.getElementById('delete-confirm-modal').classList.add('hidden');
+    document.getElementById('delete-confirm-modal').classList.remove('flex');
+}
+
+window.executeAccountDeletion = async function() {
+    if (!currentUser) return;
+
+    const btn = document.getElementById('confirm-delete-btn');
+    const spinner = document.getElementById('delete-spinner');
+    
+    btn.disabled = true;
+    spinner.classList.remove('hidden');
+
+    try {
+        // 1. Delete Firestore user document
+        const userRef = doc(db, "users", currentUser.uid);
+        await deleteDoc(userRef);
+
+        // 2. Delete Auth user
+        await currentUser.delete();
+
+        // 3. Success
+        alert("Your account has been permanently deleted.");
+        localStorage.removeItem('freshveg_session');
+        window.location.href = 'login.html';
+    } catch (error) {
+        console.error("Account deletion failed:", error);
+        if (error.code === 'auth/requires-recent-login') {
+            alert("Security Verification Required: For your protection, please log out and log back in before deleting your account.");
+        } else {
+            alert("Error deleting account: " + error.message);
+        }
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+    }
+}
+
+// ── Session & Auth Guard ───────────────────────────────────────
+let currentUser = null;
+let unsubscribeOrders = null;
+
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        currentUser = user;
+        // Fetch user data from Firestore
+        try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                const firstName = userData.name.split(' ')[0];
+                if (document.getElementById('hero-name')) document.getElementById('hero-name').textContent = firstName;
+                if (document.getElementById('sidebar-greeting')) document.getElementById('sidebar-greeting').textContent = 'Welcome back, ' + firstName + '!';
+                if (document.getElementById('sidebar-email')) document.getElementById('sidebar-email').textContent = userData.email;
+                if (document.getElementById('nav-avatar')) document.getElementById('nav-avatar').textContent = userData.name.charAt(0).toUpperCase();
+                // Update settings modal too
+                if (document.getElementById('settings-name')) document.getElementById('settings-name').textContent = userData.name;
+                if (document.getElementById('settings-email')) document.getElementById('settings-email').textContent = userData.email;
+                if (document.getElementById('settings-avatar')) document.getElementById('settings-avatar').textContent = userData.name.charAt(0).toUpperCase();
+            }
+        } catch (e) {
+            console.error("Error loading profile:", e);
+        }
+        startOrdersListener(user.uid);
+    } else {
+        window.location.href = 'login.html';
+    }
+});
+
+window.doLogout = async function() {
+    await signOut(auth);
+    localStorage.removeItem('freshveg_session');
+    window.location.href = 'login.html';
+}
+
+// ── Real-time Orders Listener ───────────────────────────────
+function startOrdersListener(userUid) {
+    const q = query(collection(db, "orders"), where("userUid", "==", userUid));
+    
+    unsubscribeOrders = onSnapshot(q, (snapshot) => {
+        const orders = [];
+        snapshot.forEach((doc) => {
+            orders.push({ id: doc.id, ...doc.data() });
+        });
+        // Sort by date desc
+        orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderOrders(orders);
+    });
+}
+
+function renderOrders(orders) {
+    const container = document.getElementById('orders-container');
+    if (!container) return;
+
+    if (orders.length === 0) {
+      container.innerHTML = `
+        <div class="bg-surface-container-lowest p-10 rounded-xl text-center">
+          <span class="material-symbols-outlined text-5xl text-on-surface-variant mb-4 block" style="font-variation-settings:'FILL' 1;">shopping_bag</span>
+          <p class="text-on-surface font-bold mb-2">No orders yet</p>
+          <p class="text-on-surface-variant text-sm mb-6">Start shopping to see your orders here.</p>
+          <a href="index.html" class="bg-primary text-on-primary px-6 py-3 rounded-full font-bold hover:opacity-90 transition-all text-sm">Browse Products</a>
+        </div>`;
+      return;
+    }
+
+    const statusColors = {
+      'Processing': 'bg-secondary-container text-on-secondary-container',
+      'In Transit': 'bg-primary-container text-on-primary-container',
+      'Delivered':  'bg-tertiary-container text-on-tertiary-container',
+    };
+
+    container.innerHTML = orders.map(order => {
+      const items = order.items || [];
+      const itemNames = items.map(i => i.name).join(', ');
+      const first = items[0] || {};
+      const imgHtml = first.image
+        ? `<img src="${first.image}" class="w-full h-full object-cover" alt="${first.name || ''}" />`
+        : `<span class="text-2xl font-black text-primary/40">${(first.name || '?').charAt(0)}</span>`;
+      const badge = statusColors[order.status] || 'bg-surface-container text-on-surface-variant';
+      
+      return `
+        <div class="bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between group hover:bg-surface-bright transition-colors gap-4">
+          <div class="flex items-center gap-5 flex-1 min-w-0">
+            <div class="w-16 h-16 rounded-full overflow-hidden bg-surface-container flex items-center justify-center shrink-0">${imgHtml}</div>
+            <div class="min-w-0">
+              <h4 class="text-base font-bold text-on-surface truncate">${itemNames}</h4>
+              <p class="text-sm text-on-surface-variant font-medium">Order #${order.orderId || order.id.slice(0,8)} &bull; ${order.displayDate || order.date}</p>
+              <p class="text-xs text-on-surface-variant mt-0.5 truncate">${order.shipping?.full || order.address}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 shrink-0">
+            <div class="text-right">
+              <p class="text-lg font-black text-on-surface">₹${order.total}</p>
+              <span class="px-3 py-1 ${badge} rounded-full text-[10px] font-bold uppercase tracking-wider">${order.status}</span>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+          </div>
+        </div>`;
+    }).join('');
+}
+</script>
+</body>
+</html>
